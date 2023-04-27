@@ -132,8 +132,9 @@ public class User implements UserDetails {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + hobby +
-                ", lastName='" + surname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", hobby=" + hobby +
                 '}';
     }
 }
