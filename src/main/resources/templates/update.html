@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирвать пользователя</title>
+</head>
+<body>
+<div class="container">
+    <h1>Редактирвать пользователя</h1>
+    <div class="m-3">
+        <form action="#" th:method="POST" th:action="@{/admin/update}"  th:object="${user}">
+            <input type="hidden" th:field="*{id}" />
+            <input type="text" th:field="*{name}" placeholder="Имя" class="form-control mb-4 col-4"  />
+
+            <input type="text" th:field="*{surname}" placeholder="Фамилия" class="form-control mb-4 col-4"/>
+            <input type="text" th:field="*{hobby}" placeholder="Хобби" class="form-control mb-4 col-4" />
+            <input type="hidden" th:field="*{password}" placeholder="Пароль" />
+            <select th:field="*{roles}"  multiple size = "2">
+                <option th:each="role : ${roleList}"
+                        th:value ="${role.id}"
+                        th:text="${role.getRoleName()}"></option>
+            </select>
+            <div class="m-3">
+                <button type="submit" class="btn btn-info col-2"> Update User</button>
+            </div>
+        </form >
+        <hr>
+        <div>
+            <a  th:href="@{/admin/}">Вернуться к списку пользователй</a></div>
+        <div>
+            <a  th:href="@{/logout}">Выйти из системы</a></div>
+    </div>
+</div>
+</body>
+</html>
