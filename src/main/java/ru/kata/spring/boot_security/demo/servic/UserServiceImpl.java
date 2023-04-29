@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,7 @@ import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 @Service
-@Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bcrypt;
@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         user.setPassword(bcrypt.encode(user.getPassword()));
         userRepository.save(user);
@@ -50,14 +51,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public void deleteUserById(long id) {
         userRepository.deleteById(id);
     }
+
+//    @Override
+//    public User findUserByEmail(String email) {
+//        return  userRepository.findUserByEmail(email);
+//    }
 
     @Override
     public User findUserByNameAndRoles(String name) {

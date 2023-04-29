@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import java.util.List;
 
 @Service
-@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
@@ -25,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public void save(Role role) {
         roleRepository.save(role);
     }

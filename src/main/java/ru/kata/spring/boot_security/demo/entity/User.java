@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.entity;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
@@ -14,6 +15,9 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//    @Column(name = "email", unique = true)
+//    @NonNull
+//    private String email;
 
     @Column(name = "name", unique = true)
     private String name;
@@ -25,6 +29,7 @@ public class User implements UserDetails {
     private boolean hobby;
 
 
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -34,6 +39,15 @@ public class User implements UserDetails {
     public User() {
     }
 
+//    public User(@NonNull String email, String name, String surname, String password, boolean hobby,
+//                List<Role> roles) {
+//        this.email = email;
+//        this.name = name;
+//        this.surname = surname;
+//        this.password = password;
+//        this.hobby = hobby;
+//        this.roles = roles;
+//    }
 
     public User(String name, boolean hobby, String surname, String password, List<Role> roles) {
         this.name = name;
@@ -62,6 +76,14 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
+//    @NonNull
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(@NonNull String email) {
+//        this.email = email;
+//    }
 
     public String getName() {
         return name;
@@ -98,9 +120,17 @@ public class User implements UserDetails {
         return password;
     }
 
+
+
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+//    @Override
+//   public String getUsername() {
+//        return email;
+//    }
 
     @Override
     public String getUsername() {
@@ -131,10 +161,12 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
+              //  ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", password='" + password + '\'' +
                 ", hobby=" + hobby +
+                ", roles=" + roles +
                 '}';
     }
 }

@@ -35,8 +35,11 @@
                 <td th:text="${user.hobby}"></td>
                 <td>
                     <a class="btn btn-outline-dark" th:href="@{/admin/updateUserForm(id=${user.id})}">Обновить</a>
-                    <a class="btn btn-outline-dark"
-                       th:href="@{/admin/delete(id=${user.id})}">Удалить</a>
+                    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}" >
+                    <input type="submit" value="Удалить">
+                    </form>
+
+
                 </td>
             </tr>
             </tbody>

@@ -10,7 +10,7 @@
 <div class="container">
     <h1>Редактирвать пользователя</h1>
     <div class="m-3">
-        <form action="#" th:method="POST" th:action="@{/admin/update}"  th:object="${user}">
+        <form action="#" th:method="PATCH" th:action="@{/admin/update}"  th:object="${user}">
             <input type="hidden" th:field="*{id}" />
             <input type="text" th:field="*{name}" placeholder="Имя" class="form-control mb-4 col-4"  />
 

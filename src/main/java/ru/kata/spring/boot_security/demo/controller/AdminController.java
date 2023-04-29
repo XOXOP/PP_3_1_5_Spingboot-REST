@@ -47,14 +47,14 @@ public class AdminController {
         return "redirect:";
     }
 
-    @PostMapping(value = "/update")
+    @PatchMapping (value = "/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:";
     }
 
-    @GetMapping(value = "/delete")
-    public String delete(@RequestParam(value = "id") Long id) {
+    @DeleteMapping ("/{id}")
+    public String delete(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:";
     }
