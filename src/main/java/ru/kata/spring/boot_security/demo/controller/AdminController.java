@@ -1,13 +1,14 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import ru.kata.spring.boot_security.demo.servic.UserService;
-import ru.kata.spring.boot_security.demo.servic.RoleService;
 import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.servic.RoleService;
+import ru.kata.spring.boot_security.demo.servic.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,26 +23,18 @@ public class AdminController {
     }
 
     @GetMapping("")
-    public ModelAndView printUser(ModelAndView modelAndView) {
-        modelAndView.addObject("userList", userService.findAll());
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/newUserForm")
-    public String addUserForm(@ModelAttribute("user") User user, Model model) {
+    public String starterPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = userService.findUserByEmail(userDetails.getUsername());
+        User newUser = new User();
+        model.addAttribute("newUser", newUser);
+        model.addAttribute("userList", userService.findAll());
         model.addAttribute("roleList", roleService.findAll());
-        return "/newemployee";
+        model.addAttribute("user", user);
+        return "admin";
     }
 
-    @GetMapping(value = "/updateUserForm")
-    public String updateForm(@RequestParam(value = "id") Long id, Model model) {
-        model.addAttribute("user", userService.findUserById(id));
-        model.addAttribute("roleList", roleService.findAll());
-        return "/update";
-    }
 
-    @PostMapping(value = "/saveEmployee")
+    @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:";
@@ -49,14 +42,20 @@ public class AdminController {
 
     @PatchMapping (value = "/update")
     public String updateUser(@ModelAttribute("user") User user) {
+
         userService.updateUser(user);
         return "redirect:";
     }
 
-    @DeleteMapping ("/{id}")
-    public String delete(@PathVariable("id") Long id) {
+
+    @DeleteMapping(value = "/delete")
+    public String delete(@RequestParam(value = "id") Long id) {
         userService.deleteUserById(id);
         return "redirect:";
     }
+
+
 }
+
+
 

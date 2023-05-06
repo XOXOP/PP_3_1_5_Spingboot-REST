@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,15 +46,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(user);
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        return userRepository.findUserByNameAndRoles(username);
+    @Transactional
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findUserByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User" + email + " not found");
+        }
+
+        return userRepository.findUserByEmail(email);
+    }
+
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     @Override
     @Transactional
     public void updateUser(User user) {
-        userRepository.save(user);
+        String oldPassword = userRepository.findUserById(user.getId()).getPassword();
+        if (oldPassword.equals(user.getPassword())) {
+            userRepository.save(user);
+        } else {
+            user.setPassword(bcrypt.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -61,15 +81,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deleteUserById(long id) {
         userRepository.deleteById(id);
     }
-
-//    @Override
-//    public User findUserByEmail(String email) {
-//        return  userRepository.findUserByEmail(email);
-//    }
-
-    @Override
-    public User findUserByNameAndRoles(String name) {
-        return userRepository.findUserByNameAndRoles(name);
-    }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

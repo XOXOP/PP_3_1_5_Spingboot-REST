@@ -11,16 +11,22 @@ public interface UserService {
     User findUserById(long id);
 
     void save(User user);
-
-    void updateUser(User newUser);
-
     void deleteUserById(long id);
 
-    User findUserByNameAndRoles(String name);
-
-    //User findUserByEmail(String email);
+    void updateUser(User newUser);
+    User findUserByEmail(String email);
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
