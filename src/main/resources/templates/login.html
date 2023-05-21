@@ -1,30 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/style.css" th:href="@{/static/style.css}" type="text/css"/>
-    <title>Admin panel</title>
+    <meta charset="utf-8">
 
-</head>
-<body class="bg-light">
-<div class="container mt-5 col-lg-3">
-    <form method="POST" action="/login">
-        <h2><b>Please sign in</b></h2>
+    <meta name="viewport"  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+    <script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=mFqFyXiOC1aCyCrvHmngQWNc3cqwR8KKmM7L4El2mdjdEjnmkhq5uQ0K5Ho0xnaZXS41N81cw8PAaQWnUqR_MQ" charset="UTF-8"></script></head>
+
+
+<body>
+<div class="container">
+
+
+    <form class="form-signin" method="POST" action="/login">
+
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="alert alert-success" role="alert">You have been signed out</div> <p>
         <form th:action="@{/login}" method="POST">
 
             <label for="login-username"></label>
             <input type="email" class="form-control" id="login-username" placeholder="Email address"
                    name="username" required autofocus/>
-
-            <label for="login-password"></label>
+        </p>
+        <p>
+            <label for="login-password" class="sr-only">Password></label>
             <input type="password" class="form-control" id="login-password" placeholder="Password"
                    name="password" required/>
-
+        </p>
             <div th:if="${param.error}"
                  class="alert alert-danger" role="alert">
                 Invalid username or password.
@@ -35,7 +41,7 @@
                 Logout successful: you have been logged out.
             </div>
 
-            <button type="submit" class="btn btn-lg btn-primary btn-block mt-4" id="sign-in">Sign in</button>
+            <button type="submit" class= "btn btn-lg btn-primary btn-block" id="sign-in" autofocus>Sign in</button>
         </form>
     </form>
 </div>

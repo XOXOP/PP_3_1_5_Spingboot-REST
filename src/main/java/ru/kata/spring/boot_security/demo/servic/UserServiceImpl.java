@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dto.UserDto;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+//import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
@@ -45,7 +47,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
         }
 
         @Override
-        public List<User> getAllUsers() {
+        public List<User> findAll() {
             return userRepository.findAll();
         }
 
@@ -74,10 +76,15 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
             userRepository.save(user);
         }
 
-        @Override
-        @Transactional
-        public User convertToUser(UserDto userDto) {
-            ModelMapper modelMapper = new ModelMapper();
-            return modelMapper.map(userDto, User.class);
-        }
+//        @Override
+//        @Transactional
+//        public User convertToUser(UserDto userDto) {
+//            ModelMapper modelMapper = new ModelMapper();
+//            return modelMapper.map(userDto, User.class);
+//        }
+//        @ExceptionHandler
+//        private ResponseEntity<PersonErrorResponse> handleException(PersonnotfoundEx e)
     }
+    /*Optional <Person> foundPerson = userReposi.findby ID (id);
+    return foundPetson.orElseThroe(PersonnotfoundEx :: new);
+     */

@@ -1,13 +1,13 @@
 package ru.kata.spring.boot_security.demo.servic;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ru.kata.spring.boot_security.demo.dto.UserDto;
+//import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<User> findAll();
 
     User getUserById(Long id);
 
@@ -19,7 +19,7 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    User convertToUser(UserDto userDto);
+   // User convertToUser(UserDto userDto);
 
 
 }
