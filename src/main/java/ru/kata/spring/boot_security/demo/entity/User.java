@@ -6,12 +6,11 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "userU")
@@ -24,9 +23,7 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
 
-//    @Column(name = "email", unique = true)
-//    @NonNull
-//    private String email
+
     @Column
     private String password;
 
@@ -112,18 +109,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-//    public String getRolesToString() {
-//        StringBuilder sb = new StringBuilder();
-//        for (Role role : roles) {
-//            sb.append(role);
-//            sb.append(" ");
-//        }
-//        return sb.toString();
-//    }
-//
-//    public String roleToString() {
-//        return roles.stream().map(Object::toString).collect(Collectors.joining(", "));
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

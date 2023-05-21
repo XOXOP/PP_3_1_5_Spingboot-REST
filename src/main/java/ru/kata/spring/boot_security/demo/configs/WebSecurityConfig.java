@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,8 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/index").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/index").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/user").hasRole("USER")
-                //.antMatchers("/user/**","/api/authUser","/api/roles").hasAnyRole("USER", "ADMIN")
-               // .antMatchers("/admin/**","/api/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -85,22 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return filterRegistrationBean;
     }
 }
-//                .formLogin()
-//                .loginPage("/login")
-//                .successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//    }
 
 
 
-//    @Bean
-//    protected DaoAuthenticationProvider daoAuthenticationProvider() {
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(userDetailsrv);
-//        daoAuthenticationProvider.setPasswordEncoder(bcrypt);
-//        return daoAuthenticationProvider;
-//    }
+
 
